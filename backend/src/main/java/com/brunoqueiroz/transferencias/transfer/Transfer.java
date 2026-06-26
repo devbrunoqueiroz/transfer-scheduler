@@ -17,16 +17,16 @@ public class Transfer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accOrigin;
+    private String sourceAccount;
 
-    private String accDestiny;
+    private String destinationAccount;
 
-    private BigDecimal value;
+    private BigDecimal amount;
 
-    private BigDecimal tax;
+    private BigDecimal fee;
 
     private LocalDate transferDate;
 
-    private LocalDate dueDate;
+    private LocalDate scheduledAt;
 
 }
