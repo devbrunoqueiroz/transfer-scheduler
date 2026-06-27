@@ -1,20 +1,19 @@
-package com.brunoqueiroz.transferencias.transfer;
+package com.brunoqueiroz.transferencias.transfer.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "transfers")
 @Getter
 @Setter
-public class Transfer {
+@AllArgsConstructor
+@NoArgsConstructor
+public class TransferResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String originAccount;
@@ -28,5 +27,4 @@ public class Transfer {
     private LocalDate transferDate;
 
     private LocalDate scheduledAt;
-
 }
