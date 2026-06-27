@@ -1,19 +1,20 @@
 package com.brunoqueiroz.transferencias.exceptions;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(TransferNotFoundException.class)
-    public ResponseEntity<String> handleTransferNotFound(
-            TransferNotFoundException ex) {
+    @ExceptionHandler(NoApplicableTaxException.class)
+    public ResponseEntity<String> handleNoApplicableTax(
+            NoApplicableTaxException ex) {
 
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .badRequest()
                 .body(ex.getMessage());
     }
 
