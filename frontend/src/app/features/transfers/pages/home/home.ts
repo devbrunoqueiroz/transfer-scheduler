@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TransferResponse } from '../../../../core/models/transfer-response';
 import { TransferService } from '../../../../core/services/transfer-service';
 import { Transfers } from '../../components/transfers-form/transfers';
@@ -19,7 +19,7 @@ export class Home implements OnInit {
 
   transfers: TransferResponse[] = [];
 
-  constructor(private transferService: TransferService) {}
+  constructor(private transferService: TransferService, private cdr: ChangeDetectorRef ) {}
 
   ngOnInit(): void {
     this.loadTransfers();
@@ -29,6 +29,7 @@ export class Home implements OnInit {
     this.transferService.getAll()
       .subscribe(transfers => {
         this.transfers = transfers;
+        this.cdr.detectChanges();
       });
   }
 }

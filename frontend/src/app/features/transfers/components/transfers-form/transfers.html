@@ -3,20 +3,32 @@
         Agendamento de Transferência
     </mat-card-title>
 
+    <hr>
+
     <mat-card-content>
         <form [formGroup]="form">
             <mat-form-field appearance="outline">
                 <mat-label>Conta Origem</mat-label>
                 <input
                     matInput
+                    maxlength="10"
+                    minlength="10"
                     formControlName="originAccount">
+                    @if(form.get('originAccount')?.hasError('required')) {
+                        <mat-error>A conta de origem é obrigatória</mat-error>
+                    }
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Conta Destino</mat-label>
                 <input
                     matInput
+                    maxlength="10"
+                    minlength="10"
                     formControlName="destinationAccount">
+                    @if(form.get('destinationAccount')?.hasError('required')) {
+                        <mat-error>A conta de destino é obrigatória</mat-error>
+                    }
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Valor</mat-label>
@@ -24,7 +36,13 @@
                     matInput
                     type="number"
                     formControlName="amount">
+                     @if(form.get('amount')?.hasError('min')) {
+                        <mat-error>
+                            O valor deve ser maior que 0
+                        </mat-error>
+                    }
             </mat-form-field>
+
 
             <mat-form-field appearance="outline">
                 <mat-label>Data</mat-label>
@@ -37,6 +55,9 @@
                     [for]="picker">
                 </mat-datepicker-toggle>
                 <mat-datepicker #picker />
+                @if(form.get('transferDate')?.hasError('required')) {
+                    <mat-error>A data é obrigatória</mat-error>
+                }
             </mat-form-field>
 
             <div class="actions">
@@ -44,7 +65,7 @@
                     mat-raised-button
                     color="primary"
                     (click)="submit()"
-                    [disabled]="loading">
+                    [disabled]="loading || form.invalid">
                     {{ loading ? 'Agendando...' : 'Agendar' }}
                 </button>
             </div>

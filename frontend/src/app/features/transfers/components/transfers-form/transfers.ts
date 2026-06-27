@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-transfers',
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -40,19 +41,14 @@ export class Transfers {
     private snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
-      originAccount: ['', Validators.required],
-      destinationAccount: ['', Validators.required],
+      originAccount: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
+      destinationAccount: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
       amount: [null, [Validators.required, Validators.min(0.01)]],
       transferDate: [null, Validators.required]
     });
   }
 
   submit() {
-
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
 
     this.loading = true;
 
@@ -64,8 +60,6 @@ export class Transfers {
           'Fechar',
           { duration: 3000 }
         );
-
-        this.form.reset();
         this.transferCreated.emit();
       },
       error: err => {
