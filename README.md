@@ -56,6 +56,14 @@ Foi utilizada uma camada de mapeamento através de `TransferMapper`, mantendo a 
 
 Essa decisão reduz o acoplamento entre banco de dados e contratos externos, permitindo alterações internas sem impacto direto nos consumidores da API.
 
+### 🛡️ Tratamento de Erros e Validação de Taxas
+
+Conforme a especificação do teste (*"Caso não haja taxa aplicável, lançar um alerta sobre o erro e não permitir transferência"*), o fluxo de exceção foi tratado de forma centralizada e elegante:
+
+1. **Exceção de Negócio Dedicada:** Foi criada a classe `NoApplicableTaxException`, que estende `RuntimeException` e encapsula a lógica de formatação da mensagem dinâmica, recebendo os dias de antecedência inválidos.
+2. **Interceptação Global (Backend):** Utilizou-se o padrão `@RestControllerAdvice` através da classe `GlobalExceptionHandler`. O método anotado com `@ExceptionHandler(NoApplicableTaxException.class)` intercepta o erro em qualquer ponto da camada de controle, devolvendo um HTTP Status `400 Bad Request` com o texto amigável diretamente no corpo (`body`) da resposta.
+3. **Feedback no Frontend (Angular):** O componente `Transfers` captura esse corpo de erro síncronamente no bloco `error` do `.subscribe()` e exibe o alerta gerado pelo backend em tempo real na tela do usuário por meio do `MatSnackBar`.
+
 
 ## Execução
 
