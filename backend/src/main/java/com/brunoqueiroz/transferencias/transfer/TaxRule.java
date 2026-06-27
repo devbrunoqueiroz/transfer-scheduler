@@ -3,6 +3,7 @@ package com.brunoqueiroz.transferencias.transfer;
 import com.brunoqueiroz.transferencias.exceptions.NoApplicableTaxException;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 
 public enum TaxRule {
@@ -39,6 +40,7 @@ public enum TaxRule {
 
         return fixedFee.add(
                 amount.multiply(percentage)
+                        .setScale(2, RoundingMode.HALF_UP)
         );
     }
 
