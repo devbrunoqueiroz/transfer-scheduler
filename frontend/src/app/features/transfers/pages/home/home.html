@@ -1,0 +1,11 @@
+<div class="container">
+
+    <app-transfers
+        (transferCreated)="loadTransfers()">
+    </app-transfers>
+
+    <app-transfers-list
+        [transfers]="transfers">
+    </app-transfers-list>
+
+</div>
