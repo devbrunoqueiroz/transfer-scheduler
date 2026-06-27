@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  min-height: 100%;
+  padding: 2rem;
+  background: #f5f7fb;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+app-transfers,
+app-transfers-list {
+  display: block;
+  background: #ffffff;
+
+  border-radius: 16px;
+  padding: 1.5rem;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.06);
+
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.08);
+
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    padding: 1rem;
+  }
+
+  .container {
+    gap: 1rem;
+  }
+
+  app-transfers,
+  app-transfers-list {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+}
